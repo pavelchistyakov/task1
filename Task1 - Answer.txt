@@ -1,0 +1,100 @@
+class Function
+{
+	public static double SquareAllSides(double a, double b, double c)
+	{
+		// Проверка на неотрицательность значения сторон		
+		if(a <= 0 || b <= 0 || c <= 0)
+		{
+			MessageBox.Show("Sides of the triangle cannot be equal to zero or less than zero!");
+			return -1;
+		}
+		// Проверка на правило треугольника
+		if(c >= a + b || b >= a + c || a >= b + c)
+		{
+			MessageBox.Show("Triangle with such lenghts of sides cannot exist!");
+			return -2;
+		}
+		else
+		{
+			// Формула Герона
+			double p = (a + b + c)/2;
+			return Math.Sqrt(p*(p-a)*(p-b)*(p-c));
+		}
+	}
+
+	public static double SquareCathetusOnly(double cathetus1, double cathetus2)
+	{
+		if (cathetus1 <= 0 || cathetus2 <= 0)
+		{
+			MessageBox.Show("Cathetuses of the triangle cannot be equal to zero or less than zero!");
+			return -1;
+		}
+		else return (cathetus1 * cathetus2) / 2;
+	}
+}
+
+class UnitTests
+{
+	public static bool TestFunction1_Normal()
+	{
+		double a = 3;
+		double b = 4;
+		double c = 5;
+		double result = 6;
+
+		double testResult = Function.SquareAllSides(a, b, c);
+
+		if(testResult == result) return true;
+		else return false;
+	}
+
+	public static bool TestFunction1_LessThanZero()
+	{
+		double a = 12;
+		double b = 34;
+		double c = -1;
+		double result = -1;
+
+		double testResult = Function.SquareAllSides(a, b, c);
+
+		if(testResult == result) return true;
+		else return false;
+	}
+
+	public static bool TestFunction1_TriangleRuleFail()
+	{
+		double a = 1;
+		double b = 2;
+		double c = 3;
+		double result = -2;
+
+		double testResult = Function.SquareAllSides(a, b, c);
+
+		if(testResult == result) return true;
+		else return false;
+	}
+
+	public static bool TestFunction2_Normal()
+	{
+		double a = 3;
+		double b = 4;
+		double result = 6;
+
+		double testResult = Function.SquareCathetusOnly(a, b);
+
+		if(testResult == result) return true;
+		else return false;
+	}
+
+	public static bool TestFunction2_LessThanZero()
+	{
+		double a = 12;
+		double b = -1;
+		double result = -1;
+
+		double testResult = Function.SquareCathetusOnly(a, b);
+
+		if(testResult == result) return true;
+		else return false;
+	}
+}
